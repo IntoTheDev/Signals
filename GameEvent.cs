@@ -6,6 +6,7 @@ using NaughtyAttributes;
 public class GameEvent : ScriptableObject
 {
 	private List<GameEventListener> listeners = new List<GameEventListener>();
+	
 	[SerializeField, ReadOnly]
 	private int gameEventListenersCount = 0;
 
