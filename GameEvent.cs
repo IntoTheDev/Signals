@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using NaughtyAttributes;
+using ToolBox.Attributes;
 
 [CreateAssetMenu(menuName = "ToolBox/Game Event")]
 public class GameEvent : ScriptableObject
@@ -29,3 +29,4 @@ public class GameEvent : ScriptableObject
 		gameEventListenersCount--;
 	}
 }
+

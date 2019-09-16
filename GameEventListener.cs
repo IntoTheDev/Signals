@@ -3,10 +3,8 @@ using UnityEngine.Events;
 
 public class GameEventListener : MonoBehaviour
 {
-	[SerializeField]
-	private GameEvent gameEvent;
-	[SerializeField]
-	private UnityEvent responseToGameEvent;
+	[SerializeField] private GameEvent gameEvent = null;
+	[SerializeField] private UnityEvent responseToGameEvent = null;
 
 	private bool isGameEventAttached = true;
 
@@ -36,8 +34,5 @@ public class GameEventListener : MonoBehaviour
 			gameEvent.RemoveListener(this);
 	}
 
-	public void Response()
-	{
-		responseToGameEvent.Invoke();
-	}
+	public void Response() => responseToGameEvent.Invoke();
 }
