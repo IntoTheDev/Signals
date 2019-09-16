@@ -5,10 +5,9 @@ using ToolBox.Attributes;
 [CreateAssetMenu(menuName = "ToolBox/Game Event")]
 public class GameEvent : ScriptableObject
 {
+	[SerializeField, ReadOnly] private int gameEventListenersCount = 0;
+
 	private List<GameEventListener> listeners = new List<GameEventListener>();
-	
-	[SerializeField, ReadOnly]
-	private int gameEventListenersCount = 0;
 
 	[Button("Raise")]
 	public void Raise()
