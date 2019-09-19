@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using ToolBox.Attributes;
+using NaughtyAttributes;
 
 [CreateAssetMenu(menuName = "ToolBox/Game Event")]
 public class GameEvent : ScriptableObject
@@ -12,20 +12,26 @@ public class GameEvent : ScriptableObject
 	[Button("Raise")]
 	public void Raise()
 	{
-		for (int i = 0; i < gameEventListenersCount; i++)
+		for (int i = gameEventListenersCount - 1; i >= 0; i--)
 			listeners[i].Response();
 	}
 
 	public void AddListener(GameEventListener listener)
 	{
-		listeners.Add(listener);
-		gameEventListenersCount++;
+		if (!listeners.Contains(listener))
+		{
+			listeners.Add(listener);
+			gameEventListenersCount++;
+		}
 	}
 
 	public void RemoveListener(GameEventListener listener)
 	{
-		listeners.Remove(listener);
-		gameEventListenersCount--;
+		if (listeners.Contains(listener))
+		{
+			listeners.Remove(listener);
+			gameEventListenersCount--;
+		}
 	}
 }
 
