@@ -2,36 +2,40 @@
 using System.Collections.Generic;
 using ToolBox.Attributes;
 
-[CreateAssetMenu(menuName = "ToolBox/Game Event")]
-public class GameEvent : ScriptableObject
+namespace ToolBox.Events
 {
-	[SerializeField, ReadOnly] private int gameEventListenersCount = 0;
-
-	private List<GameEventListener> listeners = new List<GameEventListener>();
-
-	[Button("Raise")]
-	public void Raise()
+	[CreateAssetMenu(menuName = "ToolBox/Game Event")]
+	public class GameEvent : ScriptableObject
 	{
-		for (int i = gameEventListenersCount - 1; i >= 0; i--)
-			listeners[i].Response();
-	}
+		[SerializeField, ReadOnly] private int gameEventListenersCount = 0;
 
-	public void AddListener(GameEventListener listener)
-	{
-		if (!listeners.Contains(listener))
+		private List<GameEventListener> listeners = new List<GameEventListener>();
+
+		[Button("Raise")]
+		public void Raise()
 		{
-			listeners.Add(listener);
-			gameEventListenersCount++;
+			for (int i = gameEventListenersCount - 1; i >= 0; i--)
+				listeners[i].Response();
 		}
-	}
 
-	public void RemoveListener(GameEventListener listener)
-	{
-		if (listeners.Contains(listener))
+		public void AddListener(GameEventListener listener)
 		{
-			listeners.Remove(listener);
-			gameEventListenersCount--;
+			if (!listeners.Contains(listener))
+			{
+				listeners.Add(listener);
+				gameEventListenersCount++;
+			}
+		}
+
+		public void RemoveListener(GameEventListener listener)
+		{
+			if (listeners.Contains(listener))
+			{
+				listeners.Remove(listener);
+				gameEventListenersCount--;
+			}
 		}
 	}
 }
+
 

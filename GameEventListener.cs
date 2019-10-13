@@ -1,23 +1,27 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class GameEventListener : MonoBehaviour
+namespace ToolBox.Events
 {
-	[SerializeField] private GameEvent gameEvent = null;
-	[SerializeField] private UnityEvent responseToGameEvent = null;
-
-	private void Awake()
+	public class GameEventListener : MonoBehaviour
 	{
-		if (gameEvent == null)
+		[SerializeField] private GameEvent gameEvent = null;
+		[SerializeField] private UnityEvent responseToGameEvent = null;
+
+		private void Awake()
 		{
-			Debug.LogWarning("Attach Game Event to " + name);
-			enabled = false;
+			if (gameEvent == null)
+			{
+				Debug.LogWarning("Attach Game Event to " + name);
+				enabled = false;
+			}
 		}
+
+		private void OnEnable() => gameEvent.AddListener(this);
+
+		private void OnDisable() => gameEvent.RemoveListener(this);
+
+		public void Response() => responseToGameEvent.Invoke();
 	}
-
-	private void OnEnable() => gameEvent.AddListener(this);
-
-	private void OnDisable() => gameEvent.RemoveListener(this);
-
-	public void Response() => responseToGameEvent.Invoke();
 }
+

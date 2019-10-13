@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
 
-public class GameEventRaising : MonoBehaviour
+namespace ToolBox.Events
 {
-	[SerializeField] private GameEvent gameEvent = null;
-
-	private void Awake()
+	public class GameEventRaising : MonoBehaviour
 	{
-		if (gameEvent == null)
-			enabled = false;
-	}
+		[SerializeField] private GameEvent gameEvent = null;
 
-	public void RaiseGameEvent() => gameEvent.Raise();
+		private void Awake()
+		{
+			if (gameEvent == null)
+				enabled = false;
+		}
+
+		public void RaiseGameEvent() => gameEvent.Raise();
+	}
 }
+
