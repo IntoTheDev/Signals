@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ToolBox.Events
+namespace ToolBox.Observer
 {
 	public class GameEventRaising : MonoBehaviour
 	{

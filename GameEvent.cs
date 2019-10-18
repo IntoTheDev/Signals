@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ToolBox.Attributes;
+using UnityEngine;
 
-namespace ToolBox.Events
+namespace ToolBox.Observer
 {
 	[CreateAssetMenu(menuName = "ToolBox/Game Event")]
 	public class GameEvent : ScriptableObject

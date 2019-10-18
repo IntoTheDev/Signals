@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace ToolBox.Events
+namespace ToolBox.Observer
 {
 	public class GameEventListener : MonoBehaviour
 	{
