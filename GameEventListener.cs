@@ -5,6 +5,8 @@ namespace ToolBox.Observer
 {
 	public class GameEventListener : MonoBehaviour
 	{
+		public GameEvent GameEvent => gameEvent;
+
 		[SerializeField] private GameEvent gameEvent = null;
 		[SerializeField] private UnityEvent responseToGameEvent = null;
 
