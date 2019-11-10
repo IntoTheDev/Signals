@@ -23,7 +23,7 @@ public class ObserverEditor : EditorWindow
 
 	private void OnGUI()
 	{
-		scrollPosition = GUILayout.BeginScrollView(scrollPosition, true, true);
+		scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true);
 
 		MainDraw();
 		FindListeners();
