@@ -13,24 +13,12 @@ public class ObserverEditor : EditorWindow
 	private int sceneCount = 0;
 	private int assetsCount = 0;
 
-	private bool isDrawing = false;
-
 	private Vector2 scrollPosition = Vector2.zero;
 
 	[MenuItem("Window/ToolBox/Observer")]
 	public static void ShowWindow()
 	{
 		GetWindow<ObserverEditor>("Observer Window");
-	}
-
-	private void OnFocus()
-	{
-		isDrawing = true;
-	}
-
-	private void OnLostFocus()
-	{
-		isDrawing = false;
 	}
 
 	private void OnGUI()
@@ -69,8 +57,11 @@ public class ObserverEditor : EditorWindow
 	{
 		if (gameEvent == null)
 		{
-			scene.Clear();
-			assets.Clear();
+			if (scene != null)
+				scene.Clear();
+
+			if (assets != null)
+				assets.Clear();
 
 			sceneCount = 0;
 			assetsCount = 0;
@@ -80,8 +71,8 @@ public class ObserverEditor : EditorWindow
 
 		GameEventListener[] listeners = Resources.FindObjectsOfTypeAll<GameEventListener>();
 
-		scene.Clear();
-		assets.Clear();
+		scene = new List<GameEventListener>();
+		assets = new List<GameEventListener>();
 
 		int listenersCount = listeners.Length;
 
