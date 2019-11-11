@@ -4,6 +4,8 @@ namespace ToolBox.Observer
 {
 	public class GameEventRaising : MonoBehaviour
 	{
+		public GameEvent GameEvent => gameEvent;
+
 		[SerializeField] private GameEvent gameEvent = null;
 
 		private void Awake()
