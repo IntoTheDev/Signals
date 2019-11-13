@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class ObserverEditor : EditorWindow
 {
-	private GameEvent gameEvent = null;
+	private BaseGameEvent gameEvent = null;
 
-	private List<GameEventListener> scene = null;
-	private List<GameEventListener> assets = null;
+	private List<BaseGameEventListener> scene = null;
+	private List<BaseGameEventListener> assets = null;
 	private List<GameEventRaising> raiseScene = null;
 	private List<GameEventRaising> raiseAssets = null;
 
@@ -33,34 +33,22 @@ public class ObserverEditor : EditorWindow
 		FindListeners();
 
 		GUILayout.Label("Game Event Raisers in Assets", EditorStyles.boldLabel);
-
-		EditorGUI.BeginDisabledGroup(true);
 		DrawRaisers(raiseAssetsCount, raiseAssets);
-		EditorGUI.EndDisabledGroup();
 
 		GUILayout.Space(50f);
 
 		GUILayout.Label("Game Event Raisers in Scene", EditorStyles.boldLabel);
-
-		EditorGUI.BeginDisabledGroup(true);
 		DrawRaisers(raiseSceneCount, raiseScene);
-		EditorGUI.EndDisabledGroup();
 
 		GUILayout.Space(50f);
 
 		GUILayout.Label("Game Event Listeners in Assets", EditorStyles.boldLabel);
-
-		EditorGUI.BeginDisabledGroup(true);
 		DrawListeners(assetsCount, assets);
-		EditorGUI.EndDisabledGroup();
 
 		GUILayout.Space(50f);
 
 		GUILayout.Label("Game Event Listeners in Scene", EditorStyles.boldLabel);
-
-		EditorGUI.BeginDisabledGroup(true);
 		DrawListeners(sceneCount, scene);
-		EditorGUI.EndDisabledGroup();
 
 		GUILayout.EndScrollView();
 	}
@@ -68,7 +56,7 @@ public class ObserverEditor : EditorWindow
 	private void MainDraw()
 	{
 		GUILayout.Label("Game Event", EditorStyles.boldLabel);
-		gameEvent = EditorGUILayout.ObjectField("", gameEvent, typeof(GameEvent), true) as GameEvent;
+		gameEvent = EditorGUILayout.ObjectField("", gameEvent, typeof(BaseGameEvent), true) as BaseGameEvent;
 	}
 
 	private void FindListeners()
@@ -92,22 +80,23 @@ public class ObserverEditor : EditorWindow
 			return;
 		}
 
-		GameEventListener[] listeners = Resources.FindObjectsOfTypeAll<GameEventListener>();
-		GameEventRaising[] raisers = Resources.FindObjectsOfTypeAll<GameEventRaising>();
-
-		scene = new List<GameEventListener>();
-		assets = new List<GameEventListener>();
+		scene = new List<BaseGameEventListener>();
+		assets = new List<BaseGameEventListener>();
 		raiseScene = new List<GameEventRaising>();
 		raiseAssets = new List<GameEventRaising>();
+
+		BaseGameEventListener[] listeners = Resources.FindObjectsOfTypeAll<BaseGameEventListener>();
+		GameEventRaising[] raisers = Resources.FindObjectsOfTypeAll<GameEventRaising>();
 
 		int listenersCount = listeners.Length;
 		int raisersCount = raisers.Length;
 
 		for (int i = 0; i < listenersCount; i++)
 		{
-			GameEventListener listener = listeners[i];
+			BaseGameEventListener listener = listeners[i];
+			BaseGameEvent listenerEvent = listener.GetEvent();	
 
-			if (listener.GameEvent == gameEvent)
+			if (listenerEvent == gameEvent)
 			{
 				if (listener.gameObject.scene.IsValid())
 					scene.Add(listener);
@@ -135,10 +124,14 @@ public class ObserverEditor : EditorWindow
 		raiseAssetsCount = raiseAssets.Count;
 	}
 
-	private void DrawListeners(int count, List<GameEventListener> collection)
+	private void DrawListeners(int count, List<BaseGameEventListener> collection)
 	{
+		EditorGUI.BeginDisabledGroup(true);
+
 		for (int i = 0; i < count; i++)
-			collection[i] = EditorGUILayout.ObjectField("", collection[i], typeof(GameEventListener), true) as GameEventListener;
+			collection[i] = EditorGUILayout.ObjectField("", collection[i], typeof(BaseGameEventListener), true) as BaseGameEventListener;
+
+		EditorGUI.EndDisabledGroup();
 	}
 
 	private void DrawRaisers(int count, List<GameEventRaising> collection)

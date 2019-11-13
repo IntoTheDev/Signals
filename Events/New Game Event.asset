@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7caee59d228fea347b47f62479d261b5, type: 3}
-  m_Name: NewGameEvent
+  m_Name: New Game Event
   m_EditorClassIdentifier: 
   gameEventListenersCount: 0
