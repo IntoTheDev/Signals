@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace ToolBox.Observer
 {
@@ -6,7 +7,7 @@ namespace ToolBox.Observer
 	{
 		public GameEvent GameEvent => gameEvent;
 
-		[SerializeField] private GameEvent gameEvent = null;
+		[SerializeField, AssetSelector] private GameEvent gameEvent = null;
 
 		private void Awake()
 		{

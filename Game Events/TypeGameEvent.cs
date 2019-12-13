@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using ToolBox.Attributes;
+﻿using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ToolBox.Observer
