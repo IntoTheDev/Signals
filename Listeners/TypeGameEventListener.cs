@@ -23,14 +23,18 @@ namespace ToolBox.Observer
 			}
 		}
 
-		private void OnEnable() => gameEvent.AddListener(this);
+		private void OnEnable() =>
+			gameEvent.AddListener(this);
 
-		private void OnDisable() => gameEvent.RemoveListener(this);
+		private void OnDisable() =>
+			gameEvent.RemoveListener(this);
 
-		public void OnEventRaised(TType value) => responseToGameEvent.Invoke(value);
+		public void OnEventRaised(TType value) =>
+			responseToGameEvent.Invoke(value);
 
 #if UNITY_EDITOR
-		public override BaseGameEvent GetEvent() => gameEvent as BaseGameEvent;
+		public override BaseGameEvent GetEvent() =>
+			gameEvent as BaseGameEvent;
 #endif
 	}
 }

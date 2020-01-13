@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7caee59d228fea347b47f62479d261b5, type: 3}
-  m_Name: New Game Event
+  m_Script: {fileID: 11500000, guid: ecffe0e537a464344bc0c568778e29ae, type: 3}
+  m_Name: EntityChange
   m_EditorClassIdentifier: 
   gameEventListenersCount: 0
+  debugValue: {fileID: 0}
