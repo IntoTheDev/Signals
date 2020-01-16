@@ -15,7 +15,8 @@ namespace ToolBox.Observer
 				enabled = false;
 		}
 
-		public void RaiseGameEvent() => gameEvent.Raise();
+		public void RaiseGameEvent() =>
+			gameEvent.Raise();
 	}
 }
 
