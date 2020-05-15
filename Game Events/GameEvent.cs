@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace ToolBox.Observer
@@ -7,9 +9,8 @@ namespace ToolBox.Observer
 	[CreateAssetMenu(menuName = "ToolBox/Game Events/Game Event")]
 	public class GameEvent : BaseGameEvent, IGameEvent
 	{
-		[SerializeField, ReadOnly] private int gameEventListenersCount = 0;
-
-		private List<IGameEventListener> listeners = new List<IGameEventListener>();
+		[NonSerialized, ShowInInspector, ReadOnly] private int gameEventListenersCount = 0;
+		[NonSerialized, ShowInInspector, ReadOnly] private List<IGameEventListener> listeners = new List<IGameEventListener>();
 
 		[Button("Raise")]
 		public void Raise()
@@ -34,6 +35,13 @@ namespace ToolBox.Observer
 				listeners.Remove(listener);
 				gameEventListenersCount--;
 			}
+		}
+
+		[Button("Clear")]
+		private void Clear()
+		{
+			listeners.Clear();
+			gameEventListenersCount = 0;
 		}
 	}
 }

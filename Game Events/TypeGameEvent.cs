@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,13 +7,10 @@ namespace ToolBox.Observer
 {
 	public abstract class TypeGameEvent<T> : BaseGameEvent, IGameEvent<T>
 	{
-		[SerializeField, ReadOnly] private int gameEventListenersCount = 0;
-#if UNITY_EDITOR
+		[NonSerialized, ShowInInspector, ReadOnly] private int gameEventListenersCount = 0;
 		[SerializeField] private T debugValue = default;
-#endif
 
-		private List<IGameEventListener<T>> listeners = new List<IGameEventListener<T>>();
-
+		[NonSerialized, ShowInInspector, ReadOnly] private List<IGameEventListener<T>> listeners = new List<IGameEventListener<T>>();
 
 		public void Raise(T value)
 		{
@@ -26,6 +24,13 @@ namespace ToolBox.Observer
 		{
 			for (int i = gameEventListenersCount - 1; i >= 0; i--)
 				listeners[i].OnEventRaised(debugValue);
+		}
+
+		[Button("Clear")]
+		private void Clear()
+		{
+			gameEventListenersCount = 0;
+			listeners.Clear();
 		}
 #endif
 

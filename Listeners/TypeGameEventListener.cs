@@ -1,9 +1,11 @@
 ﻿using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace ToolBox.Observer
 {
+	[DefaultExecutionOrder(-95)]
 	public class TypeGameEventListener<TType, TEvent, TResponse> : BaseGameEventListener, IGameEventListener<TType>
 		where TEvent : TypeGameEvent<TType>
 		where TResponse : UnityEvent<TType>
@@ -11,8 +13,8 @@ namespace ToolBox.Observer
 		public TEvent GameEvent => gameEvent;
 
 		[SerializeField, AssetSelector] private TEvent gameEvent = null;
-
-		public TResponse responseToGameEvent = null;
+		[OdinSerialize, Required] private IReactor[] responseToGameEvent = null;
+		[OdinSerialize, Required] private IReactor<TType>[] responseToGameEventGeneric = null;
 
 		private void Awake()
 		{
@@ -21,6 +23,8 @@ namespace ToolBox.Observer
 				Debug.LogWarning("Attach Game Event to " + name);
 				enabled = false;
 			}
+
+			gameEvent.AddListener(this);
 		}
 
 		private void OnEnable() =>
@@ -29,8 +33,11 @@ namespace ToolBox.Observer
 		private void OnDisable() =>
 			gameEvent.RemoveListener(this);
 
-		public void OnEventRaised(TType value) =>
-			responseToGameEvent.Invoke(value);
+		public void OnEventRaised(TType value)
+		{
+			responseToGameEvent.Dispatch();
+			responseToGameEventGeneric.Dispatch(value);
+		}
 
 #if UNITY_EDITOR
 		public override BaseGameEvent GetEvent() =>

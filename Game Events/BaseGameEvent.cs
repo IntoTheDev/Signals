@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace ToolBox.Observer
 {
-	public class BaseGameEvent : ScriptableObject { }
+	public class BaseGameEvent : SerializedScriptableObject { }
 }

@@ -1,15 +1,15 @@
 ﻿using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace ToolBox.Observer
 {
 	public class GameEventListener : BaseGameEventListener, IGameEventListener
 	{
-		public GameEvent GameEvent => gameEvent;
-
 		[SerializeField, AssetSelector] private GameEvent gameEvent = null;
-		[SerializeField] private UnityEvent responseToGameEvent = null;
+		[OdinSerialize, Required] private IReactor[] responseToGameEvent = null;
+
+		public GameEvent GameEvent => gameEvent;
 
 		private void Awake()
 		{
@@ -18,16 +18,22 @@ namespace ToolBox.Observer
 				Debug.LogWarning("Attach Game Event to " + name);
 				enabled = false;
 			}
+
+			gameEvent.AddListener(this);
 		}
 
-		private void OnEnable() => gameEvent.AddListener(this);
+		private void OnEnable() =>
+			gameEvent.AddListener(this);
 
-		private void OnDisable() => gameEvent.RemoveListener(this);
+		private void OnDisable() =>
+			gameEvent.RemoveListener(this);
 
-		public void OnEventRaised() => responseToGameEvent.Invoke();
+		public void OnEventRaised() =>
+			responseToGameEvent.Dispatch();
 
 #if UNITY_EDITOR
-		public override BaseGameEvent GetEvent() => gameEvent as BaseGameEvent;
+		public override BaseGameEvent GetEvent() =>
+			gameEvent as BaseGameEvent;
 #endif
 	}
 }
