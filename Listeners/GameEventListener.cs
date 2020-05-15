@@ -7,7 +7,7 @@ namespace ToolBox.Observer
 	public class GameEventListener : BaseGameEventListener, IGameEventListener
 	{
 		[SerializeField, AssetSelector] private GameEvent gameEvent = null;
-		[OdinSerialize, Required] private IReactor[] responseToGameEvent = null;
+		[OdinSerialize, Required] private ModulesContainer responseToGameEvent = null;
 
 		public GameEvent GameEvent => gameEvent;
 
@@ -29,7 +29,7 @@ namespace ToolBox.Observer
 			gameEvent.RemoveListener(this);
 
 		public void OnEventRaised() =>
-			responseToGameEvent.Dispatch();
+			responseToGameEvent.Process();
 
 #if UNITY_EDITOR
 		public override BaseGameEvent GetEvent() =>

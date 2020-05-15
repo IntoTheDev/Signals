@@ -2,5 +2,5 @@
 
 namespace ToolBox.Observer
 {
-	public class RectGameEventListener : TypeGameEventListener<Rect, RectGameEvent, RectUnityEvent> { }
+	public class RectGameEventListener : TypeGameEventListener<Rect, RectGameEvent> { }
 }

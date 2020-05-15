@@ -2,5 +2,5 @@
 
 namespace ToolBox.Observer
 {
-	public class TransformGameEventListener : TypeGameEventListener<Transform, TransformGameEvent, TransformUnityEvent> { }
+	public class TransformGameEventListener : TypeGameEventListener<Transform, TransformGameEvent> { }
 }

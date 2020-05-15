@@ -6,15 +6,13 @@ using UnityEngine.Events;
 namespace ToolBox.Observer
 {
 	[DefaultExecutionOrder(-95)]
-	public class TypeGameEventListener<TType, TEvent, TResponse> : BaseGameEventListener, IGameEventListener<TType>
-		where TEvent : TypeGameEvent<TType>
-		where TResponse : UnityEvent<TType>
+	public class TypeGameEventListener<TType, TEvent> : BaseGameEventListener, IGameEventListener<TType> where TEvent : TypeGameEvent<TType>
 	{
-		public TEvent GameEvent => gameEvent;
-
 		[SerializeField, AssetSelector] private TEvent gameEvent = null;
-		[OdinSerialize, Required] private IReactor[] responseToGameEvent = null;
-		[OdinSerialize, Required] private IReactor<TType>[] responseToGameEventGeneric = null;
+		[OdinSerialize, Required] private ModulesContainer responseToGameEvent = null;
+		[OdinSerialize, Required] private ModulesContainer<TType> responseToGameEventGeneric = null;
+
+		public TEvent GameEvent => gameEvent;
 
 		private void Awake()
 		{
@@ -35,8 +33,8 @@ namespace ToolBox.Observer
 
 		public void OnEventRaised(TType value)
 		{
-			responseToGameEvent.Dispatch();
-			responseToGameEventGeneric.Dispatch(value);
+			responseToGameEvent.Process();
+			responseToGameEventGeneric.Process(value);
 		}
 
 #if UNITY_EDITOR

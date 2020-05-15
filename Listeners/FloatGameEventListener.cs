@@ -1,4 +1,4 @@
 ﻿namespace ToolBox.Observer
 {
-	public class FloatGameEventListener : TypeGameEventListener<float, FloatGameEvent, FloatUnityEvent> { }
+	public class FloatGameEventListener : TypeGameEventListener<float, FloatGameEvent> { }
 }
