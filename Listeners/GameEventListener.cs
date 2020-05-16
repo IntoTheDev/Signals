@@ -1,5 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+using ToolBox.Modules;
 using UnityEngine;
 
 namespace ToolBox.Observer
@@ -7,7 +8,7 @@ namespace ToolBox.Observer
 	public class GameEventListener : BaseGameEventListener, IGameEventListener
 	{
 		[SerializeField, AssetSelector] private GameEvent gameEvent = null;
-		[OdinSerialize, Required] private ModulesContainer responseToGameEvent = null;
+		[OdinSerialize, Required] private ModulesContainer responseToGameEvent = default;
 
 		public GameEvent GameEvent => gameEvent;
 
