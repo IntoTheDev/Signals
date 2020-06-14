@@ -6,28 +6,28 @@ namespace ToolBox.Signals
 {
 	public class Receiver : BaseReceiver, IReceiver
 	{
-		[SerializeField, AssetSelector] private Signal signal = null;
-		[SerializeField, Required] private Reactor reactor = default;
+		[SerializeField, AssetSelector] private Signal _signal = null;
+		[SerializeField, Required] private Reactor _reactor = default;
 
 		private void Awake()
 		{
-			if (signal == null)
+			if (_signal == null)
 			{
 				Debug.LogWarning("Attach Signal to " + name);
 				enabled = false;
 			}
 
-			signal.Add(this);
+			_signal.Add(this);
 		}
 
 		private void OnEnable() =>
-			signal.Add(this);
+			_signal.Add(this);
 
 		private void OnDisable() =>
-			signal.Remove(this);
+			_signal.Remove(this);
 
 		public void OnSignalDispatched() =>
-			reactor.SendReaction();
+			_reactor.SendReaction();
 	}
 }
 

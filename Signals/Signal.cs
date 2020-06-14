@@ -8,31 +8,31 @@ namespace ToolBox.Signals
 	[CreateAssetMenu(menuName = "ToolBox/Signals/Signal"), AssetSelector]
 	public class Signal : BaseSignal, ISignal
 	{
-		[NonSerialized, ShowInInspector, ReadOnly] private int receiversCount = 0;
-		[NonSerialized, ShowInInspector, ReadOnly] private List<IReceiver> receivers = new List<IReceiver>();
+		[NonSerialized, ShowInInspector, ReadOnly] private int _receiversCount = 0;
+		[NonSerialized, ShowInInspector, ReadOnly] private List<IReceiver> _receivers = new List<IReceiver>();
 
 		[Button("Raise")]
 		public void Dispatch()
 		{
-			for (int i = receiversCount - 1; i >= 0; i--)
-				receivers[i].OnSignalDispatched();
+			for (int i = _receiversCount - 1; i >= 0; i--)
+				_receivers[i].OnSignalDispatched();
 		}
 
 		public void Add(IReceiver listener)
 		{
-			if (!receivers.Contains(listener))
+			if (!_receivers.Contains(listener))
 			{
-				receivers.Add(listener);
-				receiversCount++;
+				_receivers.Add(listener);
+				_receiversCount++;
 			}
 		}
 
 		public void Remove(IReceiver listener)
 		{
-			if (receivers.Contains(listener))
+			if (_receivers.Contains(listener))
 			{
-				receivers.Remove(listener);
-				receiversCount--;
+				_receivers.Remove(listener);
+				_receiversCount--;
 			}
 		}
 	}
