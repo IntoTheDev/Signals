@@ -20,9 +20,14 @@ namespace ToolBox.Signals
 			{
 				Debug.LogWarning("Attach Signal to " + name);
 				enabled = false;
+
+				return;
 			}
 
 			_signal.Add(this);
+
+			_signalReactor.Setup();
+			_genericSignalReactor.Setup();
 		}
 
 		private void OnEnable() =>
