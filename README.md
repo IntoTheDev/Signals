@@ -1,2 +1,2 @@
-# Observer-Pattern-With-ScriptableObjects
-Implementation of Observer Pattern with ScriptableObjects
+# Messaging system for Unity
+Lightweight type-safe messaging system for Unity.
