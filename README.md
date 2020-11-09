@@ -15,11 +15,16 @@ Lightweight type-safe messaging system.
 
 	public class Player : MonoBehaviour
 	{
+		private float _lifeTime = 0f;
+	
 		private void Awake() =>
 			Hub.Dispatch(new SignalPlayerCreated());
 
 		private void OnDestroy() =>
-			Hub.Dispatch(new SignalPlayerDestroyed(Time.realtimeSinceStartup));
+			Hub.Dispatch(new SignalPlayerDestroyed(_lifeTime));
+			
+		private void Update() =>
+			_lifeTime += Time.DeltaTime
 	}
 
 	public class Enemy : MonoBehaviour, IReceiver<SignalPlayerCreated>, IReceiver<SignalPlayerDestroyed>
