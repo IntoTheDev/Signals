@@ -1,66 +1,70 @@
 # Signals
 Lightweight type-safe messaging system.
 
-## Example
+## Usage
+
+### How to create a signal
+
+Just create a plain C# class.
+
 ```csharp
-	public class SignalPlayerCreated { }
+public class SignalPlayerCreated
+{
+	public string Name { get; }
+	public GameObject StartWeapon { get; }
 
-	public class SignalPlayerDestroyed 
+	public SignalPlayerCreated(string name, GameObject startWeapon)
 	{
-		public float LifeTime { get; } = 0f;
+		Name = name;
+		StartWeapon = startWeapon;
+	}
+}
+```
 
-		public SignalPlayerDestroyed(float lifeTime) =>
-			LifeTime = lifeTime;
+### How to send a signal
+
+You need to call Hub.Dispatch and pass in instance of signal.
+
+```csharp
+public class Player : MonoBehaviour
+{
+	[SerializeField] private string _name = "";
+	[SerializeField] private GameObject _weapon = null;
+
+	private void Start()
+	{
+		Hub.Dispatch(new SignalPlayerCreated(_name, _weapon));
+	}
+}
+```
+
+### How to receive a signal
+
+Your class/struct should implement IReceive<T> interface. Where is T you need to pass in type of signal.
+
+```csharp
+public class PlayerUI : MonoBehaviour, IReceiver<SignalPlayerCreated>
+{
+	[SerializeField] private TMP_Text _playerName = null;
+	[SerializeField] private Image _weaponIcon = null;
+
+	private void OnEnable()
+	{
+		// Subscribing to signal
+		Hub.Add<SignalPlayerCreated>(this);
 	}
 
-	public class Player : MonoBehaviour
+	private void OnDisable()
 	{
-		private float _lifeTime = 0f;
-	
-		private void Awake() =>
-			Hub.Dispatch(new SignalPlayerCreated());
-
-		private void OnDestroy() =>
-			Hub.Dispatch(new SignalPlayerDestroyed(_lifeTime));
-			
-		private void Update() =>
-			_lifeTime += Time.DeltaTime
+		// Unsubscribing from signal
+		Hub.Remove<SignalPlayerCreated>(this);
 	}
 
-	public class Enemy : MonoBehaviour, IReceiver<SignalPlayerCreated>, IReceiver<SignalPlayerDestroyed>
+	// Receiving the signal
+	public void Receive(SignalPlayerCreated value)
 	{
-		private void OnEnable()
-		{
-			Hub.Add<SignalPlayerCreated>(this);
-			Hub.Add<SignalPlayerDestroyed>(this);
-		}
-
-		private void OnDisable()
-		{
-			Hub.Remove<SignalPlayerCreated>(this);
-			Hub.Remove<SignalPlayerDestroyed>(this);
-		}
-
-		public void Receive(SignalPlayerCreated value)
-		{
-			// Do something 
-		}
-
-		public void Receive(SignalPlayerDestroyed value)
-		{
-			// Do something 
-		}
+		_playerName.text = value.Name;
+		_weaponIcon.sprite = value.StartWeapon.GetComponent<Weapon>().Icon;
 	}
-
-	public class ResultUI : MonoBehaviour, IReceiver<SignalPlayerDestroyed>
-	{
-		private void OnEnable() =>
-			Hub.Add(this);
-
-		private void OnDisable() =>
-			Hub.Remove(this);
-
-		public void Receive(SignalPlayerDestroyed value) =>
-			Debug.Log($"Player's life time: {value.LifeTime}");
-	}
+}
 ```
