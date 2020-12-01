@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 
 ### How to receive a signal
 
-Your class/struct should implement IReceive<T> interface. Where is T you need to pass in type of signal.
+Your class/struct should implement IReceive<T> interface.
 
 ```csharp
 public class PlayerUI : MonoBehaviour, IReceiver<SignalPlayerCreated>
