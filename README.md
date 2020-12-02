@@ -23,7 +23,7 @@ public class SignalPlayerCreated
 
 ### How to send a signal
 
-You need to call Hub.Dispatch and pass in instance of signal.
+You need to call `Hub.Dispatch` and pass in instance of signal.
 
 ```csharp
 public class Player : MonoBehaviour
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 
 ### How to receive a signal
 
-Your class/struct should implement IReceiver<T> interface.
+Your class/struct should implement `IReceiver<T>` interface. Pass in Signal instead of T.
 
 ```csharp
 public class PlayerUI : MonoBehaviour, IReceiver<SignalPlayerCreated>
