@@ -1,6 +1,20 @@
 # Signals
 Lightweight type-safe messaging system.
 
+## How to Install
+### Git Installation
+
+If you have Git on your computer, you can open Package Manager indside Unity, select "Add package from Git url...", and paste link ```https://github.com/IntoTheDev/Signals.git```
+
+or
+
+Open the manifest.json file of your Unity project.
+Add ```"com.intothedev.signals": "https://github.com/IntoTheDev/Signals.git"```
+
+### Manual Installation
+Download latest package from the Release section
+Import Signals.unitypackage to your Unity Project
+
 ## Usage
 
 ### How to create a signal
