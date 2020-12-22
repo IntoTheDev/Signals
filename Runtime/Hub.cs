@@ -11,7 +11,7 @@ namespace ToolBox.Signals
 		public static event Action<string, string> OnSignalDispatched = null;
 		public static IReadOnlyDictionary<string, List<IReceiver>> ReadableSignals => _readableSignals;
 
-		public static void Dispatch<T>(T value)
+		public static void Dispatch<T>(in T value)
 		{
 			int hash = typeof(T).GetHashCode();
 #if UNITY_EDITOR && ODIN_INSPECTOR
@@ -24,7 +24,7 @@ namespace ToolBox.Signals
 			int count = receivers.Count;
 
 			for (int i = 0; i < count; i++)
-				(receivers[i] as IReceiver<T>).Receive(value);
+				(receivers[i] as IReceiver<T>).Receive(in value);
 		}
 
 		public static void Add<T>(IReceiver<T> receiver)
