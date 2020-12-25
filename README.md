@@ -47,7 +47,8 @@ public class Player : MonoBehaviour
 
 	private void Start()
 	{
-		Hub.Dispatch(in new SignalPlayerCreated(_name, _weapon));
+		var signal = new SignalPlayerCreated(_name, _weapon);
+		Hub.Dispatch(in signal);
 	}
 }
 ```
