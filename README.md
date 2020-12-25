@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
 
 	private void Start()
 	{
-		Hub.Dispatch(new SignalPlayerCreated(_name, _weapon));
+		Hub.Dispatch(in new SignalPlayerCreated(_name, _weapon));
 	}
 }
 ```
@@ -75,7 +75,7 @@ public class PlayerUI : MonoBehaviour, IReceiver<SignalPlayerCreated>
 	}
 
 	// Receiving the signal
-	public void Receive(SignalPlayerCreated value)
+	public void Receive(in SignalPlayerCreated value)
 	{
 		_playerName.text = value.Name;
 		_weaponIcon.sprite = value.StartWeapon.GetComponent<Weapon>().Icon;
