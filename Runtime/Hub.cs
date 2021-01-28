@@ -23,7 +23,7 @@ namespace ToolBox.Signals
 
 			int count = receivers.Count;
 
-			for (int i = 0; i < count; i++)
+			for (int i = count - 1; i >= 0; i--)
 				(receivers[i] as IReceiver<T>).Receive(in value);
 		}
 
