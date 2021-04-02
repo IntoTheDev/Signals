@@ -11,7 +11,7 @@ or
 Open the manifest.json file of your Unity project.
 Add ```"com.intothedev.signals": "https://github.com/IntoTheDev/Signals.git"```
 
-### Manual Installation
+### Manual Installation (Version can be outdated)
 Download latest package from the Release section
 Import Signals.unitypackage to your Unity Project
 
