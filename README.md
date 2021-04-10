@@ -82,3 +82,11 @@ public class PlayerUI : MonoBehaviour, IReceiver<SignalPlayerCreated>
 	}
 }
 ```
+
+### UnityEvent
+
+Create a class that inherits from Listener<```SignalType```> and attach it to any game object you want. Now you can invoke UnityEvent to corresponding Signal.
+
+```csharp
+public class PlayerCreatedListener : Listener<SignalPlayerCreated> { }
+```
