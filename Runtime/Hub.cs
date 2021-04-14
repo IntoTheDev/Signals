@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace ToolBox.Signals
-{//1
+{
 	public static class Hub
 	{
 		private static Dictionary<int, List<IReceiver>> _signals = new Dictionary<int, List<IReceiver>>();
