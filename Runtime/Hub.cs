@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 
 namespace ToolBox.Signals
 {
 	public static class Hub
 	{
-		private static Dictionary<int, List<IReceiver>> _signals = new Dictionary<int, List<IReceiver>>();
+		private static readonly Dictionary<int, List<IReceiver>> _signals = new Dictionary<int, List<IReceiver>>(16);
 
 		public static void Dispatch<T>(in T value)
 		{
@@ -24,7 +23,7 @@ namespace ToolBox.Signals
 		{
 			int hash = typeof(T).GetHashCode();
 
-			if (_signals.TryGetValue(hash, out List<IReceiver> receivers) && !receivers.Contains(receiver))
+			if (_signals.TryGetValue(hash, out var receivers) && !receivers.Contains(receiver))
 			{
 				receivers.Add(receiver);
 
@@ -38,7 +37,7 @@ namespace ToolBox.Signals
 		{
 			int hash = typeof(T).GetHashCode();
 
-			if (_signals.TryGetValue(hash, out List<IReceiver> receivers) && receivers.Contains(receiver))
+			if (_signals.TryGetValue(hash, out var receivers) && receivers.Contains(receiver))
 				receivers.Remove(receiver);
 		}
 	}
