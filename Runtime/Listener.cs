@@ -3,17 +3,17 @@ using UnityEngine.Events;
 
 namespace ToolBox.Signals
 {
-	public abstract class Listener<T> : MonoBehaviour, IReceiver<T>
+	public abstract class Listener<S> : MonoBehaviour, IReceiver<S> where S : struct, ISignal
 	{
-		[SerializeField] private UnityEvent<T> _onDispatched = null;
+		[SerializeField] private UnityEvent<S> _onDispatched = null;
 
 		private void OnEnable() =>
-			Hub.Add(this);
+			Hub<S>.Add(this);
 
 		private void OnDisable() =>
-			Hub.Remove(this);
+			Hub<S>.Remove(this);
 
-		public void Receive(in T value) =>
+		public void Receive(in S value) =>
 			_onDispatched?.Invoke(value);
 	}
 }
