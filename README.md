@@ -19,13 +19,13 @@ Import Signals.unitypackage to your Unity Project
 
 ### How to create a signal
 
-Just create a plain C# class.
+Just create a plain C# struct and implement `ISignal` interface.
 
 ```csharp
-public class SignalPlayerCreated
+public readonly struct SignalPlayerCreated : ISignal
 {
-	public string Name { get; }
-	public GameObject StartWeapon { get; }
+	public readonly string Name;
+	public readonly GameObject StartWeapon;
 
 	public SignalPlayerCreated(string name, GameObject startWeapon)
 	{
@@ -37,7 +37,7 @@ public class SignalPlayerCreated
 
 ### How to send a signal
 
-You need to call `Hub.Dispatch` and pass in instance of signal.
+You need to call `Hub<S>.Dispatch(new S())`. Instead of `S` you need to pass in type of your signal.
 
 ```csharp
 public class Player : MonoBehaviour
@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
 
 ### How to receive a signal
 
-Your class/struct should implement `IReceiver<T>` interface. Pass in Signal instead of T.
+Your class/struct must implement `IReceiver<S>` interface. Instead of `S` you need to pass in type of your signal.
 
 ```csharp
 public class PlayerUI : MonoBehaviour, IReceiver<SignalPlayerCreated>
@@ -62,16 +62,23 @@ public class PlayerUI : MonoBehaviour, IReceiver<SignalPlayerCreated>
 	[SerializeField] private TMP_Text _playerName = null;
 	[SerializeField] private Image _weaponIcon = null;
 
+	private void Awake()
+    	{
+		// You can get last dispatched signal like this
+		// This is useful if for example UI was created later then the player
+        	Receive(Hub<SignalPlayerCreated>.Last);
+    	}
+
 	private void OnEnable()
 	{
 		// Subscribing to signal
-		Hub.Add<SignalPlayerCreated>(this);
+		Hub<SignalPlayerCreated>.Add(this);
 	}
 
 	private void OnDisable()
 	{
 		// Unsubscribing from signal
-		Hub.Remove<SignalPlayerCreated>(this);
+		Hub<SignalPlayerCreated>.Remove(this);
 	}
 
 	// Receiving the signal
@@ -85,7 +92,7 @@ public class PlayerUI : MonoBehaviour, IReceiver<SignalPlayerCreated>
 
 ### UnityEvent
 
-Create a class that inherits from Listener<```SignalType```> and attach it to any game object you want. Now you can invoke UnityEvent to corresponding Signal.
+Create a class that inherits from `Listener<SignalType>` and attach it to any game object you want. Now you can invoke UnityEvent to corresponding Signal.
 
 ```csharp
 public class PlayerCreatedListener : Listener<SignalPlayerCreated> { }
