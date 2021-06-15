@@ -1,5 +1,9 @@
 # Signals
-Lightweight type-safe messaging system.
+
+## Features
+- Type-safe
+- Very fast in terms of performance
+- Allows you to get last dispatched signal
 
 ## How to Install
 ### Git Installation (Best way to get latest version)
