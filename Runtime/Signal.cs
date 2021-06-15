@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace ToolBox.Signals
 {
-    public static class Signal<S> where S : struct, ISignal
+    public static class Signal<S>
     {
         private static readonly List<IReceiver<S>> _receivers = new List<IReceiver<S>>(8);
         private static S _last = default;
