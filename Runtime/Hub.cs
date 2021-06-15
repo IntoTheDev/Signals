@@ -2,19 +2,19 @@ using System.Collections.Generic;
 
 namespace ToolBox.Signals
 {
-    public static class Hub<S> where S : struct, ISignal
+    public static class Signal<S> where S : struct, ISignal
     {
         private static readonly List<IReceiver<S>> _receivers = new List<IReceiver<S>>(8);
 
         public static S Last { get; private set; } = default;
 
-        public static void Add(IReceiver<S> receiver)
+        public static void AddListener(IReceiver<S> receiver)
         {
             if (!_receivers.Contains(receiver))
                 _receivers.Add(receiver);
         }
 
-        public static void Remove(IReceiver<S> receiver)
+        public static void RemoveListener(IReceiver<S> receiver)
         {
             if (_receivers.Contains(receiver))
                 _receivers.Remove(receiver);
