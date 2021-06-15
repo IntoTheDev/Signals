@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
 Your class/struct must implement `IReceiver<S>` interface. Instead of `S` you need to pass in type of your signal.
 
 ```csharp
-public class PlayerUI : MonoBehaviour, IReceiver<SignalPlayerCreated>
+public class PlayerUI : MonoBehaviour, IReceiver<PlayerCreated>
 {
 	[SerializeField] private TMP_Text _playerName = null;
 	[SerializeField] private Image _weaponIcon = null;
