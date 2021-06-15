@@ -66,7 +66,8 @@ public class PlayerUI : MonoBehaviour, IReceiver<PlayerCreated>
     	{
 		// You can get last dispatched signal like this
 		// This is useful if for example UI was created later then the player
-        	Receive(Signal<PlayerCreated>.Last);
+		if (Signal<PlayerCreated>.TryGetLast(out var last))
+        		Receive(last);
     	}
 
 	private void OnEnable()
