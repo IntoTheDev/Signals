@@ -23,10 +23,10 @@ Import Signals.unitypackage to your Unity Project
 
 ### How to create a signal
 
-Just create a plain C# struct and implement `ISignal` interface.
+Create a plain C# class or struct. I prefer to use readonly structs.
 
 ```csharp
-public readonly struct PlayerCreated : ISignal
+public readonly struct PlayerCreated
 {
 	public readonly string Name;
 	public readonly GameObject StartWeapon;
