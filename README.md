@@ -1,5 +1,8 @@
 # Signals
 
+### TODO
+- [ ] Abstract signals
+
 ## Features
 - Type-safe
 - Very fast in terms of performance
