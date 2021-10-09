@@ -3,6 +3,8 @@
 ### TODO
 - [ ] Abstract signals
 
+Update: With my current knowledge I can't implement it without huge performance loss
+
 ## Features
 - Type-safe
 - Very fast in terms of performance
